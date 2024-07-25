@@ -25,4 +25,4 @@ commands:
       label: "Echo using single quotes"
       component: tools
       workingDir: "${PROJECT_SOURCE}"
-      commandLine:  "echo 'this is a test with single quotes' > double-quote-echo.txt"
+      commandLine:  "echo 'this is a test with single quotes' > single-quote-echo.txt"
