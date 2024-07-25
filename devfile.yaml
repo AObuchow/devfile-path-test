@@ -1,0 +1,16 @@
+schemaVersion: 2.2.2
+metadata:
+  name: test-path
+components:
+  - name: tools
+    container:
+      image: quay.io/devfile/universal-developer-image:ubi8-latest
+      memoryLimit: 1G
+      mountSources: true
+commands:
+  - id: show-path
+    exec:
+      label: "Show PATH In Task"
+      component: tools
+      workingDir: "${PROJECT_SOURCE}"
+      commandLine:  echo $PATH | tr : \\n | sort  >  task-path.txt
