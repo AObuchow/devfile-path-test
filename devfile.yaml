@@ -14,3 +14,15 @@ commands:
       component: tools
       workingDir: "${PROJECT_SOURCE}"
       commandLine:  'echo $PATH | tr : \\n | sort  >  task-path.txt'
+  - id: double-quotes-test
+    exec:
+      label: "Echo using double quotes"
+      component: tools
+      workingDir: "${PROJECT_SOURCE}"
+      commandLine:  'echo "this is a test" > double-quote-echo.txt'
+  - id: single-quotes-test
+    exec:
+      label: "Echo using double quotes"
+      component: tools
+      workingDir: "${PROJECT_SOURCE}"
+      commandLine:  "echo 'this is a test' > double-quote-echo.txt"
