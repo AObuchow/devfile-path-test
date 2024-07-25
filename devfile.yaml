@@ -13,4 +13,4 @@ commands:
       label: "Show PATH In Task"
       component: tools
       workingDir: "${PROJECT_SOURCE}"
-      commandLine:  echo $PATH | tr : \\n | sort  >  task-path.txt
+      commandLine:  'echo $PATH | tr : \\n | sort  >  task-path.txt'
