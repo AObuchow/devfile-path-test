@@ -19,10 +19,10 @@ commands:
       label: "Echo using double quotes"
       component: tools
       workingDir: "${PROJECT_SOURCE}"
-      commandLine:  'echo "this is a test" > double-quote-echo.txt'
+      commandLine:  'echo "this is a test with double quotes" > double-quote-echo.txt'
   - id: single-quotes-test
     exec:
-      label: "Echo using double quotes"
+      label: "Echo using single quotes"
       component: tools
       workingDir: "${PROJECT_SOURCE}"
-      commandLine:  "echo 'this is a test' > double-quote-echo.txt"
+      commandLine:  "echo 'this is a test with single quotes' > double-quote-echo.txt"
