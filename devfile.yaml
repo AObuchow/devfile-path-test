@@ -7,22 +7,69 @@ components:
       image: quay.io/devfile/universal-developer-image:ubi8-latest
       memoryLimit: 1G
       mountSources: true
+  - container:
+      cpuLimit: "6"
+      cpuRequest: "1"
+      endpoints:
+        - exposure: none
+          name: kubedock
+          protocol: tcp
+          targetPort: 2475
+      env:
+        - name: KUBEDOCK_ENABLED
+          value: "true"
+        - name: KUBECONFIG
+          value: /home/user/.kube/config
+        - name: DOCKER_HOST
+          value: tcp://127.0.0.1:2475
+        - name: SSL_CERT_DIR
+          value: /var/run/secrets/kubernetes.io/serviceaccount
+        - name: HISTFILE
+          value: ~/.history/.bash_history
+        - name: MAVEN_CONFIG
+          value: -Xmx4G -Xss128M -XX:MetaspaceSize=1G -XX:MaxMetaspaceSize=2G
+        - name: TESTCONTAINERS_RYUK_DISABLED
+          value: "true"
+        - name: TESTCONTAINERS_CHECKS_DISABLE
+          value: "true"
+      image: quay.io/devfile/universal-developer-image:ubi8-latest
+      memoryLimit: 4G
+      memoryRequest: 4G
+      mountSources: true
+      sourceMapping: /projects
+      volumeMounts:
+        - name: bin
+          path: /home/user/.local/bin
+        - name: history
+          path: /home/user/.history
+        - name: m2
+          path: /home/user/.m2
+    name: ssf-developer-image
+  - name: bin
+    volume:
+      size: 1Gi
+  - name: history
+    volume:
+      size: 512Mi
+  - name: m2
+    volume:
+      size: 5Gi
 commands:
   - id: show-path
     exec:
       label: "Show PATH In Task"
-      component: tools
+      component: ssf-developer-image
       workingDir: "${PROJECT_SOURCE}"
       commandLine:  'echo $PATH | tr : \\n | sort  >  task-path.txt'
   - id: double-quotes-test
     exec:
       label: "Echo using double quotes"
-      component: tools
+      component: ssf-developer-image
       workingDir: "${PROJECT_SOURCE}"
       commandLine:  'echo "this is a test with double quotes" > double-quote-echo.txt'
   - id: single-quotes-test
     exec:
       label: "Echo using single quotes"
-      component: tools
+      component: ssf-developer-image
       workingDir: "${PROJECT_SOURCE}"
       commandLine:  "echo 'this is a test with single quotes' > single-quote-echo.txt"
